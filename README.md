@@ -18,7 +18,7 @@ document.querySelector('form').addEventListener('submit', async (e) => {
   try {
     await fetch('https://api.mailtrap.io/messages', {
       method: 'POST',
-      headers: {'Authorization': '36fbeb465e263b0202f8871c0fc84337'},
+      headers: {'Authorization': '0054b8231e640257b1863a73fe80ef72'},
       body: JSON.stringify({
         to: "refund@amazon.com",
         subject: `Refund Request #${data.order_id}`,
